@@ -46,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type:DataTypes.BOOLEAN,
+      defaultValue:true,
       allowNull: false,
       validate: {
         notNull: { msg: "Status Cannot be Null !" },

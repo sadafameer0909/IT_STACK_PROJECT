@@ -49,6 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue:true,
       validate: {
         notNull: { msg: "Status Cannot be Null !" },
         notEmpty: { msg: "Status Cannot be Empty !" }
