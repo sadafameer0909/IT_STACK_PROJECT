@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Enquiry.init({
-    reg_no: {
+    enq_no: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

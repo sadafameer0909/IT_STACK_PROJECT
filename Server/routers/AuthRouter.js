@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ApiResponse = require('../utils/ApiResponse');
 const adminRouter = require('./AdminRouter');
+const counsellorRouter = require('./CounsellorRouter');
 const jwt = require('jsonwebtoken');
 
 router.use((request,response,next)=>{
@@ -20,10 +21,8 @@ router.use((request,response,next)=>{
             }
             else
             {
-                const { userid, useremail } = tokendata;
-                request.user = { userid, useremail };
-                console.log('Authenticated User:', request.user);
-                 
+                const {userid,useremail,userstatus} = tokendata
+                request.user = {userid,useremail,userstatus}
                 next()
             }
         })
@@ -31,6 +30,7 @@ router.use((request,response,next)=>{
 })
 
 router.use("/admin", adminRouter);
+router.use('/couns',counsellorRouter)
 
 
 module.exports = router
