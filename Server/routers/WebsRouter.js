@@ -3,7 +3,7 @@ const router = express.Router()
 const ApiResponse = require("../utils/ApiResponse")
  const jwt = require('jsonwebtoken')
  
-const {Course,Admin} = require('../models');
+const {Course,Admin,Counsellor} = require('../models');
 
     router.post("/admin_login",async (request, response) => {
         // console.log(request.body)

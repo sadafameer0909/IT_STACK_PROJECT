@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const ApiResponse = require("../utils/ApiResponse");
-const {Counsellor,Faculty,Course} = require('../models');
+const {Counsellor,Faculty,Course,Registration,Fees} = require('../models');
 
 router.use((request,response,next)=>{
     if(request.user.useremail=='admin@itstack.in'){
@@ -96,10 +96,10 @@ router.put("/course_update/:id",async (request,response)=>
     const {crs_name,crs_duration,crs_fees} = request.body;
 
     try{
-        const fac1 = await Course.update({crs_name,crs_duration,crs_fees},{
+        const crs = await Course.update({crs_name,crs_duration,crs_fees},{
             where : {id}
         });
-        response.status(201).json(new ApiResponse(true,"Course data Updated !",fac1,null))
+        response.status(201).json(new ApiResponse(true,"Course data Updated !",crs,null))
     }catch(err){
         response.status(500).json(new ApiResponse(false,"Course data Not Updated !",null,err.message))
     }
@@ -148,8 +148,75 @@ router.patch("/faculty_status/:id",async (request,response)=>
         response.status(500).json(new ApiResponse(false,"Faculty Not Updated !",null,err.message))
     }
 })
+router.patch("/course_status/:id",async (request,response)=>
+{
+    const id = request.params.id;
 
-
+    try{
+        var crs1 = await Course.findOne({
+            where : {id}
+        })
+        if(crs1==null)
+        {
+            response.status(500).json(new ApiResponse(false,"Course Not Found !",null,null))
+        }else
+        {
+            crs1.status = !crs1.status;
+            crs1.save();
+            response.status(200).json(new ApiResponse(true,"Course Status Changed !",null,null))
+        }
+        
+    }catch(err){
+        response.status(500).json(new ApiResponse(false,"Course Not Updated !",null,err.message))
+    }
+})
+//reg_no,enq_no,stud_name,password,gender,mobile,p_name,p_mobile,
+//address,stud_course,qualification,counsellor
+router.put('/reg_update/:id',async (request,response)=>
+    {
+        const id = request.params.id;
+        const {reg_no,enq_no,stud_name,password,gender,mobile,p_name,p_mobile,address,stud_course,qualification} = request.body;
+    
+        try{
+            const reg1 = await Registration.update({reg_no,enq_no,stud_name,password,gender,mobile,p_name,p_mobile,address,stud_course,qualification},{
+                where : {id}
+            });
+            response.status(201).json(new ApiResponse(true,"Registration data Updated !",reg1,null))
+        }catch(err){
+            response.status(500).json(new ApiResponse(false,"Registration data Not Updated !",null,err.message))
+        }
+    })
+    
+    router.put('/fees_update/:id',async (request,response)=>
+    {
+        const id = request.params.id;
+        const {student,course,rec_no,fees_amount} = request.body;
+    
+        try{
+            const fees1 = await Fees.update({student,course,rec_no,fees_amount},{
+                where : {id}
+            });
+            response.status(201).json(new ApiResponse(true,"Fees data Updated !",fees1,null))
+        }catch(err){
+            response.status(500).json(new ApiResponse(false,"Fees data Not Updated !",null,err.message))
+        }
+    })
+    router.get('/list/reg',async(request,response)=>{
+        try
+        { 
+        const data = await Registration.findAll({
+            where: { status: true },
+            attributes: {
+                exclude: ["status", "createdAt", "updatedAt"]
+            }
+        });
+        response.status(200).json(new ApiResponse(true, "Registered Student List!", data, null))
+        }
+        catch(err)
+        {
+        response.status(500).json(new ApiResponse(false,"Student Registration List Not Found !",null,err.message))  
+        }
+    })
 
 
 

@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
         Registration.belongsTo(models.Enquiry,
           { foreignKey: 'enq_no' })
       Registration.belongsTo(models.Course,
-        { foreignKey: 'crs_id' })
+        { foreignKey: 'id' })
     Registration.belongsTo(models.Counsellor,
-      { foreignKey: 'co_id' })
+      { foreignKey: 'id' })
   }
   }
   Registration.init({

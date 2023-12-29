@@ -60,6 +60,14 @@ queryInterface.sequelize.options.logging = true;
         type:Sequelize.INTEGER,
         references : {model:"courses",key:"id"}
       },
+      // crs_id: {
+      //   type: Sequelize.INTEGER,
+      //   allowNull: true,
+      //   references: {
+      //     model: 'courses', // Assuming your Course model is associated with a 'courses' table
+      //     key: 'id',
+      //   }
+      //   },
       qualification: {
         type: Sequelize.STRING,
         allowNull:false
