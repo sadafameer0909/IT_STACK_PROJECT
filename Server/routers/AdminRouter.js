@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const ApiResponse = require("../utils/ApiResponse");
-const {Counsellor,Faculty,Course,Registration,Fees} = require('../models');
+const {Counsellor,Faculty,Course,Registration,Fees,Batch,StudBatch,Admin} = require('../models');
 
 router.use((request,response,next)=>{
     if(request.user.useremail=='admin@itstack.in'){
@@ -18,7 +18,7 @@ router.post("/counsellor_reg",async (request,response)=>
     {  
         const {co_name,email,mobile,password} = reqData;  
         console.log("reqData"+reqData)  
-        const co_Data = {co_name,email,mobile,password} 
+        const co_Data = {co_name,email,mobile,password,status:true} 
         console.log("co_Data"+co_Data)  
         const couns = await Counsellor.create(co_Data); 
 
@@ -208,7 +208,14 @@ router.put('/reg_update/:id',async (request,response)=>
             where: { status: true },
             attributes: {
                 exclude: ["status", "createdAt", "updatedAt"]
-            }
+            },
+            include: [
+                {
+                  model: Course,
+                  as: 'course_info',
+                  attributes: ["crs_name","crs_fees"]
+                },
+            ]
         });
         response.status(200).json(new ApiResponse(true, "Registered Student List!", data, null))
         }
@@ -218,8 +225,113 @@ router.put('/reg_update/:id',async (request,response)=>
         }
     })
 
-
-
-
+    router.get('/list/couns',async(request,response)=>{
+        try
+        { 
+        const data = await Counsellor.findAll({
+            where: { status: true },
+            attributes: {
+                exclude: ["status", "createdAt", "updatedAt"]
+            }
+        });
+        response.status(200).json(new ApiResponse(true, "Registered Counsellor List!", data, null))
+        }
+        catch(err)
+        {
+        response.status(500).json(new ApiResponse(false,"Student RCounsellor List Not Found !",null,err.message))  
+        }
+    })
+    router.get('/list/faculty',async(request,response)=>{
+        try
+        { 
+        const data = await Faculty.findAll({
+            where: { status: true },
+            attributes: {
+                exclude: ["status", "createdAt", "updatedAt"]
+            }
+        });
+        response.status(200).json(new ApiResponse(true, "Registered Faculty List!", data, null))
+        }
+        catch(err)
+        {
+        response.status(500).json(new ApiResponse(false,"Student Faculty List Not Found !",null,err.message))  
+        }
+    })
+    router.patch("/batch_status/:id",async (request,response)=>
+    {
+        const id = request.params.id;
+    
+        try{
+            var bat = await Batch.findOne({
+                where : {id}
+            })
+            if(bat==null)
+            {
+                response.status(500).json(new ApiResponse(false,"Batch Not Found !",null,null))
+            }else
+            {
+                bat.status = !bat.status;
+                bat.save();
+                response.status(200).json(new ApiResponse(true,"Batch Status Changed !",null,null))
+            }
+            
+        }catch(err){
+            response.status(500).json(new ApiResponse(false,"Batch Not Updated !",null,err.message))
+        }
+    })
+    router.patch("/stud_batch_status/:id",async (request,response)=>
+    {
+        const id = request.params.id;
+    
+        try{
+            var sbat = await StudBatch.findOne({
+                where : {id}
+            })
+            if(sbat==null)
+            {
+                response.status(500).json(new ApiResponse(false,"Student Batch Not Found !",null,null))
+            }else
+            {
+                sbat.status = !sbat.status;
+                sbat.save();
+                response.status(200).json(new ApiResponse(true,"Student Batch Status Changed !",null,null))
+            }
+            
+        }catch(err){
+            response.status(500).json(new ApiResponse(false,"Student Batch Not Updated !",null,err.message))
+        }
+    })
+    router.put('/admin_change_password/:id', async (request, response) => {
+             
+        const us=request.user.userid;
+              console.log(us)
+      const us1=await Admin.findOne({
+        where: {id:us}
+      })
+      console.log(us1)
+    
+    const ps1=us1.password;
+    console.log(ps1)
+    const old1=request.body.oldPassword;
+    const new1=request.body.newPassword;
+     if(ps1==old1){
+     const newP= await Admin.update({password:new1},{
+        where : {id:us}
+    });
+    console.log(newP)
+    if(newP[0]>0){
+        response.status(201).json(new ApiResponse(true,"Password Updated !",null,null))
+    }else{
+    response.status(500).json(new ApiResponse(false,"Admin Not Found !",null,err.message))
+        
+    }
+     
+     }else{
+        
+        response.status(500).json(new ApiResponse(false,"Old and New Password Does not Match !",null,"Password Doesnt Match"))
+       
+     }
+    
+    })
 
 module.exports = router

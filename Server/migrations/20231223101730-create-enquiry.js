@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       enq_no: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },

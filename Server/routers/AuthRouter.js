@@ -3,6 +3,7 @@ const router = express.Router();
 const ApiResponse = require('../utils/ApiResponse');
 const adminRouter = require('./AdminRouter');
 const counsellorRouter = require('./CounsellorRouter');
+const studRouter=require('./StudRouter');
 const jwt = require('jsonwebtoken');
 
 router.use((request,response,next)=>{
@@ -21,8 +22,11 @@ router.use((request,response,next)=>{
             }
             else
             {
-                const {userid,useremail,userstatus} = tokendata
-                request.user = {userid,useremail,userstatus}
+                const {userid,useremail,userreg_no,userstatus} = tokendata
+                request.user = { userid, useremail, userreg_no, userstatus };
+                const token = authHeader && authHeader.split(' ')[1];
+console.log('Token:', token);
+
                 next()
             }
         })
@@ -30,7 +34,8 @@ router.use((request,response,next)=>{
 })
 
 router.use("/admin", adminRouter);
-router.use('/couns',counsellorRouter)
+router.use('/couns',counsellorRouter);
+router.use('/stud',studRouter)
 
 
 module.exports = router

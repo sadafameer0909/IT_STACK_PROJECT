@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: "batches", key: "id" }
       },
-      Status: {
+      status: {
         type: Sequelize.BOOLEAN,
         allowNull:false
       },

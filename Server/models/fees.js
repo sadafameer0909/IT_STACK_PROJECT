@@ -8,8 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Fees.belongsTo(models.Registration,
         {foreignKey:"student"})
-      Fees.belongsTo(models.StudCourse,
-        {foreignKey:"course"})
+        Fees.belongsTo(models.Course,
+          {foreignKey:"course_id"})
+  
     }
   }
   Fees.init({
@@ -22,13 +23,22 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     fees_amount: {
-      type:DataTypes.STRING,
+      type:DataTypes.FLOAT,
       allowNull:false,
       validate:{
         notNull:{msg:"Fees Amount can not be null!"},
         notEmpty:{msg:"Fees Amount can not be Empty!"}
       }
     },
+    rem_amount:{
+      type:DataTypes.FLOAT,
+      allowNull:false,
+      validate:{
+        notNull:{msg:"Rem Amount can not be null!"},
+        notEmpty:{msg:"Rem Amount can not be Empty!"}
+      }
+    },
+    
     status: {
       type:DataTypes.BOOLEAN,
       allowNull:false,

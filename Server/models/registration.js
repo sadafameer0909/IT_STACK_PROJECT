@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
         Registration.belongsTo(models.Enquiry,
           { foreignKey: 'enq_no' })
-      Registration.belongsTo(models.Course,
-        { foreignKey: 'id' })
-    Registration.belongsTo(models.Counsellor,
-      { foreignKey: 'id' })
-  }
+          Registration.belongsTo(models.Course,
+              { foreignKey: "course" }
+            )
+  
+}
   }
   Registration.init({
     reg_no: {
@@ -95,6 +95,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: "Qualification Cannot be Empty !" }
       }
     },
+
     status:{
       type: DataTypes.BOOLEAN,
     allowNull:false,
@@ -103,7 +104,14 @@ module.exports = (sequelize, DataTypes) => {
       notEmpty: { msg: "Status Cannot be Empty !" }
     }
     },
-
+   fees: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Fees Cannot be Null !" },
+        notEmpty: { msg: "Fees Cannot be Empty !" }
+      }
+    },
   },
     {
       sequelize,

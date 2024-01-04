@@ -11,19 +11,26 @@ module.exports = {
       },
       student:{
         type: Sequelize.INTEGER,
+        allowNull:false,
         references: { model: "registration", key: "id" }
       },
-      course:{
+      course_id:{
         type: Sequelize.INTEGER,
-        references: { model: "stud_courses", key: "id" }
+        references: { model: "courses", key: "id" },
+       allowNull:false
       },
       rec_no: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       fees_amount: {
-        type: Sequelize.STRING,
+        type: Sequelize.FLOAT,
         allowNull: false,
+        
+      },
+      rem_amount:{
+        type:Sequelize.FLOAT,
+        allowNull: false
       },
       status: {
         type: Sequelize.BOOLEAN,

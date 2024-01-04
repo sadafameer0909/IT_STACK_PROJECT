@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const {Enquiry,Registration,Fees,StudBatch,Faculty} = require('../models');
+const {Enquiry,Registration,Fees,StudBatch,Faculty,Course,stude_course,Counsellor} = require('../models');
 const ApiResponse = require("../utils/ApiResponse");
+
+
 
 
 router.use((request,response,next)=>{
@@ -24,33 +26,156 @@ router.post('/enquiry',async(request,response)=>{
     const reqData = request.body;
     try
     {  
-        const {} = reqData;    
-        const co_Data = {co_name,email,mobile,password} 
-        const couns = await Enquiry.create(co_Data);   
-        response.status(201).json(new ApiResponse(true,"Counsellor Saved !",couns,null))
+        const {enq_no,stud_name,mobile,qualification,clg_name,course,fees,placement,enq_type,feedback} = reqData;  
+        const enq_date= new Date(); 
+        const counsellor = request.user.userid; 
+        const eq_Data = {enq_no,enq_date,stud_name,mobile,qualification,clg_name,course,counsellor,fees,placement,enq_type,feedback,status:true}
+        const enq = await Enquiry.create(eq_Data);   
+        response.status(201).json(new ApiResponse(true,"Enquiry Saved !",enq,null))
     }catch(err)
     {
-        response.status(500).json(new ApiResponse(false,"Counsellor Not Saved !",null,err.message))
+        response.status(500).json(new ApiResponse(false,"Enquiry Not Saved !",null,err.message))
     }
 })
 //reg_no,enq_no,date,stud_name,password,gender,mobile,p_name,p_mobile,address,stud_course,qualification,counsellor,status
-router.post('/stud_reg',async(request,response)=>{
-    const reqData = request.body;
-    try
-    {  
-        const {reg_no,enq_no,stud_name,mobile,gender,p_name,p_mobile,address,qualification,stud_course} = reqData;
-        const date= new Date(); 
-        const password = 12345;
-        const counsellor = request.user.userid;  
-        const reg_Data = {reg_no,enq_no,date,stud_name,mobile,password,gender,p_name,p_mobile,address,stud_course,qualification,counsellor} 
-        const register = await Registration.create(reg_Data);   
-        response.status(201).json(new ApiResponse(true,"Student Registration Saved !",register,null))
-    }catch(err)
-    {
-        response.status(500).json(new ApiResponse(false,"Student Registration Not Saved !",null,err.message))
-    }
-})
+// router.post('/stud_reg',async(request,response)=>{
+//     const reqData = request.body;
+//     try
+//     {  
+        
+//         const {reg_no, enq_no, stud_name, mobile, gender, p_name, p_mobile, address, qualification,course} = reqData;
+//         const date= new Date(); 
+//         const password=12345;
+//         const fees = reqData.fees;
+//         const reg_Data = {reg_no, enq_no,date, stud_name, mobile,password, gender, p_name, p_mobile, address, qualification, course,fees,status:true} 
+//         const register = await Registration.create(reg_Data);   
+//         response.status(201).json(new ApiResponse(true,"Student Registration Saved !",register,null))
 
+//         const {student,total_fees} = reqData;
+//          student=request.user.userid;
+//          total_fees=fees;
+         
+//          const stcourseData = { student,course,total_fees,status:true}
+//          const stcourse = await StudBatch.create(stcourseData);
+//     }catch(err)
+//     {
+//         response.status(500).json(new ApiResponse(false,"Student Registration Not Saved !",null,err.message))
+//     }
+
+// })
+// router.post('/stud_reg', async (request, response) => {
+//     const reqData = request.body;
+//     try {
+//         const {
+//             reg_no,
+//             enq_no,
+//             stud_name,
+//             mobile,
+//             gender,
+//             p_name,
+//             p_mobile,
+//             address,
+//             qualification,
+          
+//             course, 
+//         } = reqData;
+
+//         const date = new Date();
+//         const password = 12345;
+//         const fees = reqData.fees; 
+//        const  counsellor=request.user.userid;
+//         // Create registration record
+//         const reg_Data = {
+//             reg_no,
+//             enq_no,
+//             date,
+//             stud_name,
+//             mobile,
+//             password,
+//             gender,
+//             p_name,
+//             p_mobile,
+//             address,
+//             qualification,
+//             counsellor,
+//             course,
+//             fees,  
+//             status: true
+//         };
+//         const register = await Registration.create(reg_Data);
+
+//         // Create student course record
+        
+//     const stcourseData = { student: reg_no,course:register.course, total_fees: fees, rem_fees: fees, status: true };
+   
+//         const stcourse = await StudCourse.create(stcourseData);
+
+//         response.status(201).json(new ApiResponse(true, "Student Registration Saved !", register, null));
+//     } catch (err) {
+//         response.status(500).json(new ApiResponse(false, "Student Registration Not Saved !", null, err.message));
+//     }
+// });
+
+
+router.post('/stud_reg', async (request, response) => {
+    const reqData = request.body;
+    try {
+      const {
+        reg_no,
+        enq_no,
+        stud_name,
+        mobile,
+        gender,
+        p_name,
+        p_mobile,
+        address,
+        qualification,
+        course,
+      } = reqData;
+  
+      const date = new Date();
+      const password = 12345;
+      const fees = reqData.fees;
+  
+      // Create registration record
+      const register = await Registration.create({
+        reg_no,
+        enq_no,
+        date,
+        stud_name,
+        mobile,
+        password,
+        gender,
+        p_name,
+        p_mobile,
+        address,
+        qualification,
+        course,
+        fees,
+        status: true
+      });
+  
+      console.log(register)
+
+      // Create student course record
+      const stcourseData = {
+       
+        student: register.id, // Use the ID of the created registration
+       course_id:course,
+        total_fees: fees,
+        rem_fees: fees,
+        status: true
+      };
+     
+      const stcourse = await stude_course.create(stcourseData);
+  
+      response.status(201).json(new ApiResponse(true, "Student Registration Saved!", register, null));
+    } catch (err) {
+        console.log("ERROR VIEW",err)
+      response.status(500).json(new ApiResponse(false, "Student Registration Not Saved!", null, err.message));
+    }
+  });
+  
 router.get('/list/reg',async(request,response)=>{
     try
     { 
@@ -180,5 +305,36 @@ router.get('/list/faculty',async(request,response)=>{
     response.status(500).json(new ApiResponse(false,"Faculty Not Found !",null,err.message))  
     }
 })
+router.put('/couns_change_password/:id', async (request, response) => {
+             
+    const us=request.user.userid;
+          console.log(us)
+  const us1=await Counsellor.findOne({
+    where: {id:us}
+  })
+  console.log(us1)
 
+const ps1=us1.password;
+console.log(ps1)
+const old1=request.body.oldPassword;
+const new1=request.body.newPassword;
+ if(ps1==old1){
+ const newP= await Counsellor.update({password:new1},{
+    where : {id:us}
+});
+console.log(newP)
+if(newP[0]>0){
+    response.status(201).json(new ApiResponse(true,"Password Updated !",null,null))
+}else{
+response.status(500).json(new ApiResponse(false,"Counsellor Not Found !",null,err.message))
+    
+}
+ 
+ }else{
+    
+    response.status(500).json(new ApiResponse(false,"Old and New Password Does not Match !",null,"Password Doesnt Match"))
+   
+ }
+
+})
 module.exports = router
