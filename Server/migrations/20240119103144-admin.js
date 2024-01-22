@@ -2,33 +2,26 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('counsellors', {
+    await queryInterface.createTable('admins', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      co_name: {
-        type: Sequelize.STRING,
-        allowNull:false
-      },
       email: {
         type: Sequelize.STRING,
-        unique:true,
-        allowNull:false
+        allowNull:false,
+        unique:true
       },
       mobile: {
         type: Sequelize.STRING,
         allowNull:false
       },
-      password: {
-        type: Sequelize.STRING,
-        allowNull:false
-      },
-      status:{
-        type: Sequelize.BOOLEAN,
-        allowNull:false
+      Uuser:{
+        type : Sequelize.INTEGER,
+        allowNull: false,
+        references : { model: "users" , key : "id" }
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('counsellors');
+    await queryInterface.dropTable('admins');
   }
 };

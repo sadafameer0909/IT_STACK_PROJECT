@@ -22,9 +22,9 @@
             <tbody>
                 <tr>
                     <td>1.</td>
-                    <td>Admin Login</td>
+                    <td>Login <b>(Admin,Counsellor,Student)</b></td>
                     <td>POST</td>
-                    <td>{Server}/browse/admin_login</td>
+                    <td>{Server}/browse/login</td>
                     <td>JSON</td>
                     <td>email,password</td>
                     <td>
@@ -211,7 +211,7 @@
                 </tr>
                 <tr>
                     <td>10.</td>
-                    <td>Course List</td>
+                    <td>Course List<b>(Admin,Counsellor,Student)</b></td>
                     <td>Get</td>
                     <td>{Server}/browse/list/course</td>
                     <td></td>
@@ -227,59 +227,193 @@
                 </tr>
                 <tr>
                     <td>11.</td>
-                    <td>Counsellor Login</td>
+                    <td>Add Batch <b>(Admin)</b></td>
                     <td>POST</td>
-                    <td>{Server}/browse/couns_login</td>
+                    <td>{Server}/auth/admin/add_batch</td>
                     <td>JSON</td>
-                    <td>email,password</td>
+                    <td>course,start_date,batch_timing,faculty</td>
                     <td>
                         Response Saved :-<br>
-                        {   "status": true,
-                            "msg": "Counsellor Login Success!",
+                        {
+                            "status": true,
+                            "msg": "Batch Saved !",
                             "data": {
-                                "token": " "
+                                "id": 3,
+                                "course": "1",
+                                "start_date": "23-Nov-2024",
+                                "batch_timing": "6pm - 9pm",
+                                "faculty": "1",
+                                "status": true,
+                                "updatedAt": "2024-01-16T17:54:22.902Z",
+                                "createdAt": "2024-01-16T17:54:22.902Z"
                             },
                             "error": null
                         }<br>
                         Response Failed :-<br>
-                        {   "status": false,
-                            "msg": "Login Failed !",
+                        {
+                            "status": false,
+                            "msg": "Batch Not Saved !",
                             "data": null,
-                            "error": " "
+                            "error": ""
                         }
                     </td>
                 </tr>
                 <tr>
                     <td>12.</td>
-                    <td>Faculty Login </td>
+                    <td>Admin Change Password <b>(Admin)</b></td>
                     <td>POST</td>
-                    <td>{Server}/browse/fac_login</td>
+                    <td>{Server}/auth/admin/admin_change_password</td>
                     <td>JSON</td>
-                    <td>email,password</td>
+                    <td>oldPassword,newPassword</td>
                     <td>
                         Response Saved :-<br>
-                        {   "status": true,
-                            "msg": "Faculty Login Success!",
-                            "data": {
-                                "token": " "
-                            },
+                        {
+                            "status": true,
+                            "msg": "Password Updated !",
+                            "data": null,
                             "error": null
                         }<br>
                         Response Failed :-<br>
-                        {   "status": false,
-                            "msg": "Login Failed !",
+                        {
+                            "status": false,
+                            "msg": "Old and New Password Does not Match !",
                             "data": null,
-                            "error":" "
+                            "error": "Password Doesnt Match"
                         }
                     </td>
                 </tr>
                 <tr>
                     <td>13.</td>
+                    <td>Counsellor Status Change<b>(Admin)</b></td>
+                    <td>POST</td>
+                    <td>{Server}/auth/admin/couns_status/:id</td>
+                    <td>JSON</td>
+                    <td>(id in URL)
+                    </td>
+                    <td>
+                        Response Saved :-<br>
+                        {
+                            "status": true,
+                            "msg": "Counsellor Status Changed !",
+                            "data": null,
+                            "error": null
+                        }<br>
+                        Response Failed :-<br>
+                        {
+                            "status": false,
+                            "msg": " !",
+                            "data": null,
+                            "error": null
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>14.</td>
+                    <td>Faculty Status Change<b>(Admin)</b></td>
+                    <td>POST</td>
+                    <td>{Server}/auth/admin/faculty_status/:id</td>
+                    <td>JSON</td>
+                    <td>(id in URL)
+                    </td>
+                    <td>
+                        Response Saved :-<br>
+                        {
+                            "status": true,
+                            "msg": "Faculty Status Changed !",
+                            "data": null,
+                            "error": null
+                        }<br>
+                        Response Failed :-<br>
+                        {
+                            "status": false,
+                            "msg": " !",
+                            "data": null,
+                            "error": null
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>15.</td>
+                    <td>Course Status Change<b>(Admin)</b></td>
+                    <td>POST</td>
+                    <td>{Server}/auth/admin/course_status/:id</td>
+                    <td>JSON</td>
+                    <td>(id in URL)
+                    </td>
+                    <td>
+                        Response Saved :-<br>
+                        {
+                            "status": true,
+                            "msg": "Course Status Changed !",
+                            "data": null,
+                            "error": null
+                        }<br>
+                        Response Failed :-<br>
+                        {
+                            "status": false,
+                            "msg": " !",
+                            "data": null,
+                            "error": null
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>16.</td>
+                    <td>Batch Status Change<b>(Admin)</b></td>
+                    <td>POST</td>
+                    <td>{Server}/auth/admin/batch_status/:id</td>
+                    <td>JSON</td>
+                    <td>(id in URL)
+                    </td>
+                    <td>
+                        Response Saved :-<br>
+                        {
+                            "status": true,
+                            "msg": "Batch Status Changed !",
+                            "data": null,
+                            "error": null
+                        }<br>
+                        Response Failed :-<br>
+                        {
+                            "status": false,
+                            "msg": " !",
+                            "data": null,
+                            "error": null
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>17.</td>
+                    <td>Student Batch Status Change<b>(Admin)</b></td>
+                    <td>POST</td>
+                    <td>{Server}/auth/admin/stud_batch_status/:id</td>
+                    <td>JSON</td>
+                    <td>(id in URL)
+                    </td>
+                    <td>
+                        Response Saved :-<br>
+                        {
+                            "status": true,
+                            "msg": "Student Batch Status Changed !",
+                            "data": null,
+                            "error": null
+                        }<br>
+                        Response Failed :-<br>
+                        {
+                            "status": false,
+                            "msg": " !",
+                            "data": null,
+                            "error": null
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>18.</td>
                     <td>Student Enquiry<b>(Counsellor)</b></td>
                     <td>POST</td>
                     <td>{Server}/auth/couns/stud_enquiry</td>
                     <td>JSON</td>
-                    <td>enq_no,enq_date,stud_name,mobile,qualification,<br>clg_name,course,counsellor,fees,placement,enq_type,<br>feedback,status
+                    <td>enq_no,enq_date,stud_name,mobile,qualification,<br>clg_name,course,counsellor(),fees,placement,enq_type,<br>feedback,status
                     </td>
                     <td>
                         Response Saved :-<br>
@@ -297,7 +431,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>14.</td>
+                    <td>19.</td>
                     <td>Student Registration<b>(Counsellor)</b></td>
                     <td>POST</td>
                     <td>{Server}/auth/couns/stud_reg</td>
@@ -320,7 +454,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>15.</td>
+                    <td>20.</td>
                     <td>Student Enquiry List<b>(Counsellor)</b></td>
                     <td>GET</td>
                     <td>{Server}/auth/couns/list/enq</td>
@@ -336,7 +470,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>16.</td>
+                    <td>21.</td>
                     <td>Student Registration List<b>(Counsellor)</b></td>
                     <td>GET</td>
                     <td>{Server}/auth/couns/list/reg</td>
@@ -357,29 +491,7 @@
                         }
                     </td>
                 </tr>
-                <tr>
-                    <td>17.</td>
-                    <td>Student Registration List<b>(Admin)</b></td>
-                    <td>GET</td>
-                    <td>{Server}/auth/admin/list/reg</td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        Response Saved :-<br>
-                        {   "status": true,
-                            "msg": "Registered Student List!",
-                            "data": [],
-                            "error": null
-                        }<br>
-                        Response Failed :-<br>
-                        {   "status": false,
-                            "msg": "Student Registration List Not Found !",
-                            "data": null,
-                            "error":" "
-                        }
-                    </td>
-                </tr>
-                <td>18.</td>
+                <td>22.</td>
                 <td>Counsellor List<b>(Admin)</b></td>
                 <td>GET</td>
                 <td>{Server}/auth/admin/list/couns</td>
@@ -409,7 +521,7 @@
                     }
                 </td>
             </tr>
-            <td>19.</td>
+            <td>23.</td>
             <td>Faculty List<b>(Admin)</b></td>
             <td>GET</td>
             <td>{Server}/auth/admin/list/faculty</td>
@@ -439,7 +551,7 @@
                 }
             </td>
         </tr>
-        <td>20.</td>
+        <td>24.</td>
         <td>Faculty List<b>(Admin)</b></td>
         <td>GET</td>
         <td>{Server}/auth/admin/list/faculty</td>
@@ -469,6 +581,227 @@
             }
         </td>
     </tr>
+    <td>25.</td>
+    <td>Add Batch<b>(Counsellor)</b></td>
+    <td>POST</td>
+    <td>{Server}/auth/couns/add_batch</td>
+    <td>
+        JSON
+    </td>
+    <td>course,start_date,batch_timing,faculty</td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Batch Saved !",
+            "data": {
+                "id": 1,
+                "course": "1",
+                "start_date": "23-Nov-2024",
+                "batch_timing": "6pm - 9pm",
+                "faculty": "1",
+                "status": true,
+                "updatedAt": "2024-01-21T15:42:29.488Z",
+                "createdAt": "2024-01-21T15:42:29.488Z"
+            },
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": "Batch Not Saved !",
+            "data": null,
+            "error": " "
+        }
+    </td>
+</tr>
+<td>26.</td>
+    <td>Add Students in Batch<b>(Counsellor)</b></td>
+    <td>POST</td>
+    <td>{Server}/auth/couns/add_stud_batch</td>
+    <td>
+        JSON
+    </td>
+    <td>student,batch</td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Student Batch Saved !",
+            "data": {
+                "id": 1,
+                "student": "1",
+                "batch": "1",
+                "status": true,
+                "updatedAt": "2024-01-21T15:59:06.856Z",
+                "createdAt": "2024-01-21T15:59:06.856Z"
+            },
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": "Student Batch Not Saved !",
+            "data": null,
+            "error": " "
+        }
+    </td>
+</tr>
+</tr>
+<td>28.</td>
+    <td>Add Fees<b>(Counsellor)</b></td>
+    <td>POST</td>
+    <td>{Server}/auth/couns/fees_add</td>
+    <td>
+        JSON
+    </td>
+    <td>student, course_id, rec_no,fees_amount,status</td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Fees is saved !",
+            "data": {
+                "id": 1,
+                "student": "1",
+                "course_id": "1",
+                "st_crs_id": "1",
+                "rec_no": "1",
+                "fees_amount": "4000",
+                "rem_amount": 1000,
+                "status": true,
+                "updatedAt": "2024-01-21T16:15:42.740Z",
+                "createdAt": "2024-01-21T16:15:42.740Z"
+            },
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": "fees Not Saved !",
+            "data": null,
+            "error": " "
+        }
+    </td>
+</tr>
+<td>29.</td>
+    <td>Add Multiple Course in Student Course<b>(Counsellor)</b></td>
+    <td>POST</td>
+    <td>{Server}/auth/couns/mul_stud_course</td>
+    <td>
+        JSON
+    </td>
+    <td>student,course_id,total_fees,rem_fees</td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Data Saved!",
+            "data": [
+                {
+                    "id": 3,
+                    "student": 1,
+                    "course_id": 1,
+                    "total_fees": "500",
+                    "rem_fees": "500",
+                    "status": true,
+                    "updatedAt": "2024-01-21T16:34:46.924Z",
+                    "createdAt": "2024-01-21T16:34:46.924Z"
+                },
+                {
+                    "id": 4,
+                    "student": 2,
+                    "course_id": 1,
+                    "total_fees": "600",
+                    "rem_fees": "600",
+                    "status": true,
+                    "updatedAt": "2024-01-21T16:34:46.943Z",
+                    "createdAt": "2024-01-21T16:34:46.943Z"
+                }
+            ],
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": "Data Not Saved !",
+            "data": null,
+            "error": " "
+        }
+    </td>
+</tr>
+<tr>
+    <td>30.</td>
+    <td>Counsellor Change Password <b>(counsellor)</b></td>
+    <td>POST</td>
+    <td>{Server}/auth/couns/couns_change_password</td>
+    <td>JSON</td>
+    <td>oldPassword,newPassword</td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Password Updated !",
+            "data": null,
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": "Old and New Password Does not Match !",
+            "data": null,
+            "error": "Password Doesnt Match"
+        }
+    </td>
+</tr>
+<tr>
+    <td>31.</td>
+    <td>Change Course Image <b>(Admin)</b></td>
+    <td>PATCH</td>
+    <td>{Server}/auth/admin/change_course_image/:id</td>
+    <td>Form-Data </td>
+    <td>crs_image</td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Course Image Changed !",
+            "data": null,
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": "Course Image Not Uploaded !",
+            "data": null,
+            "error": null
+        }
+    </td>
+</tr>
+<tr>
+    <td>32.</td>
+    <td>Student Change Password <b>(Student)</b></td>
+    <td>POST</td>
+    <td>{Server}/auth/stud/stud_change_password</td>
+    <td>JSON</td>
+    <td>oldPassword,newPassword</td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Password Updated !",
+            "data": null,
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": " ",
+            "data": null,
+            "error": " "
+        }
+    </td>
+</tr>
             </tbody>
         </table>
     </body>

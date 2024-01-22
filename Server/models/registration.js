@@ -9,9 +9,12 @@ module.exports = (sequelize, DataTypes) => {
         Registration.belongsTo(models.Enquiry,
           { foreignKey: 'enq_no' })
           Registration.belongsTo(models.Course,
-              { foreignKey: "course" }
-            )
-  
+              { foreignKey: "course" })
+            Registration.belongsTo(models.user,{
+              foreignKey : 'Uuser' })
+           Registration.belongsTo(models.Counsellor,{
+            foreignKey: "counsellor" })
+          
 }
   }
   Registration.init({
@@ -39,14 +42,23 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: "Student Name Cannot be Empty !" }
       }
     },
-    password: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull: { msg: "Password Cannot be Null !" },
-        notEmpty: { msg: "Password Cannot be Empty !" }
+        notNull: { msg: "Email Cannot be Null !" },
+        isEmail: { msg: "Wrong Email Format !" },
+        notEmpty: { msg: "Email Cannot be Empty !" }
       }
-    },
+      },
+    // password: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    //   validate: {
+    //     notNull: { msg: "Password Cannot be Null !" },
+    //     notEmpty: { msg: "Password Cannot be Empty !" }
+    //   }
+    // },
     gender: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -94,15 +106,6 @@ module.exports = (sequelize, DataTypes) => {
         notNull: { msg: "Qualification Cannot be Null !" },
         notEmpty: { msg: "Qualification Cannot be Empty !" }
       }
-    },
-
-    status:{
-      type: DataTypes.BOOLEAN,
-    allowNull:false,
-    validate: {
-      notNull: { msg: "Status Cannot be Null !" },
-      notEmpty: { msg: "Status Cannot be Empty !" }
-    }
     },
    fees: {
       type: DataTypes.FLOAT,

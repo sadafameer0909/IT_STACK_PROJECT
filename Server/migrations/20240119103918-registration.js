@@ -32,10 +32,11 @@ queryInterface.sequelize.options.logging = true;
         type: Sequelize.STRING,
         allowNull:false
       },
-      password: {
+      email: {
         type: Sequelize.STRING,
+        unique:true,
         allowNull:false
-      },
+    },
       gender: {
         type: Sequelize.STRING,
         allowNull:false
@@ -72,9 +73,10 @@ queryInterface.sequelize.options.logging = true;
         type:Sequelize.INTEGER,
         references : {model:"counsellors",key:"id"}
       },
-      status: {
-        type: Sequelize.BOOLEAN,
-        allowNull:false
+      Uuser:{
+        type : Sequelize.INTEGER,
+        allowNull: false,
+        references : { model: "users" , key : "id" }
       },
       createdAt: {
         allowNull: false,

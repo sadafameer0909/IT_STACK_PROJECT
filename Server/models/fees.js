@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
         {foreignKey:"student"})
         Fees.belongsTo(models.Course,
           {foreignKey:"course_id"})
-  
+          Fees.belongsTo(models.stude_course,
+            {foreignKey:"st_crs_id"})
     }
   }
   Fees.init({

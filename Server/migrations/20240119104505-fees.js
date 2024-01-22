@@ -19,6 +19,11 @@ module.exports = {
         references: { model: "courses", key: "id" },
        allowNull:false
       },
+      st_crs_id:{
+        type: Sequelize.INTEGER,
+        references: { model: "stude_courses", key: "id" },
+       allowNull:false 
+      },
       rec_no: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -50,3 +55,4 @@ module.exports = {
     await queryInterface.dropTable('fees');
   }
 };
+

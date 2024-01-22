@@ -22,10 +22,10 @@ router.use((request,response,next)=>{
             }
             else
             {
-                const {userid,useremail,userreg_no,userstatus} = tokendata
-                request.user = { userid, useremail, userreg_no, userstatus };
-                const token = authHeader && authHeader.split(' ')[1];
-console.log('Token:', token);
+                const {userid,useremail,userreg_no,usertype} = tokendata
+                request.user = { userid, useremail, userreg_no, usertype};
+                // const token = authHeader && authHeader.split(' ')[1];
+                // console.log('Tokendata:', tokendata);
 
                 next()
             }

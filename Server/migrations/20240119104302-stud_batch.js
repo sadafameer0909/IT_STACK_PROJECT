@@ -2,30 +2,22 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('faculties', {
+    await queryInterface.createTable('stud_batches', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      f_name: {
-        type: Sequelize.STRING,
-        allowNull:false
-      },
-      email: {
-        type: Sequelize.STRING,
+      student:{
+        type: Sequelize.INTEGER,
         allowNull:false,
-        unique:true
+        references: { model: "registration", key: "id" }
       },
-      mobile: {
-        type: Sequelize.STRING,
+      batch:{
+        type: Sequelize.INTEGER,
         allowNull:false,
-        unique:true
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull:false
+        references: { model: "batches", key: "id" }
       },
       status: {
         type: Sequelize.BOOLEAN,
@@ -42,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('faculties');
+    await queryInterface.dropTable('stud_batches');
   }
 };

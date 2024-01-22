@@ -6,7 +6,9 @@ module.exports = (sequelize, DataTypes) => {
   class Counsellor extends Model {
 
     static associate(models) {
-
+      Counsellor.belongsTo(models.user,{
+        foreignKey : 'Uuser'
+      })
     }
   }
   Counsellor.init({
@@ -36,23 +38,14 @@ module.exports = (sequelize, DataTypes) => {
         len: { args: [[10, 10]], msg: 'Phone Number can only be 10 digits' }
       }
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: { msg: "Password Cannot be Null !" },
-        notEmpty: { msg: "Password Cannot be Empty !" }
-      }
-    },
-    status: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      //defaultValue:true,
-      validate: {
-        notNull: { msg: "Status Cannot be Null !" },
-        notEmpty: { msg: "Status Cannot be Empty !" }
-      }
-    }
+    // password: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    //   validate: {
+    //     notNull: { msg: "Password Cannot be Null !" },
+    //     notEmpty: { msg: "Password Cannot be Empty !" }
+    //   }
+    // }
   }, {
     sequelize,
     modelName: 'Counsellor',

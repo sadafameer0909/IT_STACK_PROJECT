@@ -2,36 +2,29 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('batches', {
+    await queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      course: {
-        type: Sequelize.INTEGER,
-        references: { model: "courses", key: "id" }
+      email: {
+          type: Sequelize.STRING,
+          unique:true,
+          allowNull:false
       },
-      start_date: {
+      password: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull:false
       },
-      batch_timing: {
+      type: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull:false
       },
-      faculty: {
-        type: Sequelize.INTEGER,
-        references: { model: "faculties", key: "id" }
-      },
-      // student: {
-      //   type: Sequelize.INTEGER,
-      //   references: { model: "stud_batches", key: "id" }
-      // },
       status: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
+        allowNull:false
       },
       createdAt: {
         allowNull: false,
@@ -44,6 +37,7 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('batches');
+    await queryInterface.dropTable('users');
   }
 };
+

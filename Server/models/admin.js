@@ -6,8 +6,10 @@ module.exports = (sequelize, DataTypes) => {
   class Admin extends Model {
     
     static associate(models) {
-     
-    }
+        Admin.belongsTo(models.user,{
+          foreignKey:'Uuser' 
+        });
+      }
   }
   Admin.init({
     email: {
