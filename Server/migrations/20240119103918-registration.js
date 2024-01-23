@@ -78,6 +78,10 @@ queryInterface.sequelize.options.logging = true;
         allowNull: false,
         references : { model: "users" , key : "id" }
       },
+      status: {
+        type: Sequelize.BOOLEAN,
+        allowNull:false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

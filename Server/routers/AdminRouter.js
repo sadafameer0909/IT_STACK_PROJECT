@@ -292,7 +292,7 @@ router.put('/reg_update/:id',async (request,response)=>
         try
         { 
         const data = await Registration.findAll({
-            where: { status: true },
+//where: { status: true },
             attributes: {
                 exclude: ["status", "createdAt", "updatedAt"]
             },
@@ -478,6 +478,6 @@ router.put('/reg_update/:id',async (request,response)=>
                 response.status(500).json(new ApiResponse(false,"Course Image Not Updated !",null,err.message))
             }
         })    
-     
+    //course, batch, fees, student course, student batch, enquiry
 
 module.exports = router

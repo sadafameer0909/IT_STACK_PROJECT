@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {Enquiry,Registration,Fees,StudBatch,Faculty,Course,stude_course} = require('../models');
+const {Enquiry,Registration,Fees,StudBatch,Faculty,Course,stude_course,Batch} = require('../models');
 const ApiResponse = require("../utils/ApiResponse");
 
 
@@ -30,6 +30,9 @@ router.get('/batch_view', async (request, response) => {
                 student: us1.id,
                 status: true
             },
+            include: [
+                { model: Batch, as: 'batchdata' }
+              ],
             attributes: {
                 exclude: ["status", "createdAt", "updatedAt"]
             }
@@ -120,11 +123,11 @@ router.get('/stud_profile', async (request, response) => {
 
         const data = await Registration.findOne({
             where: {
-                 id:studr,
-                status: true
+                 Uuser:studr,
+                //status: true
             },
             attributes: {
-                exclude: ["password","fees","counsellor","status","date","enq_no", "createdAt", "updatedAt"]
+                exclude: ["password","fees","counsellor","date","enq_no","Uuser", "createdAt", "updatedAt"]//"status"
             }
         });
         console.log('Student View Data:', data);
@@ -154,58 +157,19 @@ router.get('/stud_course_view', async (request, response) => {
                 student: regId,
                 status: true
             },
+            include: [
+                { model: Course, as: 'crs_data' }
+              ],
             attributes: {
-                exclude: ["status", "createdAt", "updatedAt"]
+                exclude: ["total_fees","rem_fees","status", "createdAt", "updatedAt"]
             }
         });
 
 
-        response.status(200).json(new ApiResponse(true, "Course Records!", crs1, null));
+        response.status(200).json(new ApiResponse(true, "Course Data!", crs1, null));
     } catch (err) {
-        response.status(500).json(new ApiResponse(false, "Course records not found!", null, err.message));
+        response.status(500).json(new ApiResponse(false, "Course Data not found!", null, err.message));
     }
 });
-router.patch("/change_course_image/:id",async (request,response)=>
-{
-    const cid = request.params.id;
-    
-    try{
-        var crs3 = await Course.findOne({
-            where : {id:cid}
-        })
-        if(crs3==null)
-        {
-            response.status(500).json(new ApiResponse(false,"Course Not Found !",null,null))
-        }else
-        {  
-            if(request.files.crs_image==undefined || request.files.crs_image==null || request.files.crs_image==undefined)
-            {
-                response.status(500).json(new ApiResponse(false,"Course Image Not Uploaded !",null,null))
-            }else
-            {
-                const uploadFile = request.files.crs_image;
-                if(uploadFile.mimetype.includes("image/"))
-                {
-                        fs.unlinkSync(path.join('./uploads',crs3.crs_image));
-
-                        const name = uuidv4() + path.extname(uploadFile.name);
-                        const filePath = './uploads/'+name;
-                        uploadFile.mv(filePath)
-                        
-                        crs3.crs_image = name;
-                        crs3.save();
-                        response.status(200).json(new ApiResponse(true,"Course Image Changed !",null,null))
-                }else{
-                    response.status(500).json(new ApiResponse(false,"Course Image Wrong Format !",null,null))
-                }
-            }
-        }
-        
-    }catch(err){
-        console.error(err);
-        response.status(500).json(new ApiResponse(false,"Course Image Not Updated !",null,errorParser(err)))
-    }
-})
-
 
 module.exports = router;

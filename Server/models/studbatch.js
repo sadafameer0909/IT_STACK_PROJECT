@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       StudBatch.belongsTo(models.Registration,
         {foreignKey:"student"})
       StudBatch.belongsTo(models.Batch,
-        {foreignKey:"batch"})
+        {foreignKey:"batch", as: 'batchdata'})
+       
     }
   }
   StudBatch.init({

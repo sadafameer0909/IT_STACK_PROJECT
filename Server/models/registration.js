@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         Registration.belongsTo(models.Enquiry,
           { foreignKey: 'enq_no' })
           Registration.belongsTo(models.Course,
-              { foreignKey: "course" })
+              { foreignKey: "course", as: "course_info"})
             Registration.belongsTo(models.user,{
               foreignKey : 'Uuser' })
            Registration.belongsTo(models.Counsellor,{
@@ -115,6 +115,13 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: "Fees Cannot be Empty !" }
       }
     },
+    // status: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    //   validate: {
+    //     notNull: { msg: "Status Cannot be Null !" },
+    //     notEmpty: { msg: "Status Cannot be Empty !" }
+    //   }}
   },
     {
       sequelize,

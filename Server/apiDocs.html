@@ -552,34 +552,50 @@
             </td>
         </tr>
         <td>24.</td>
-        <td>Faculty List<b>(Admin)</b></td>
+        <td>Registration List<b>(Admin)</b></td>
         <td>GET</td>
-        <td>{Server}/auth/admin/list/faculty</td>
+        <td>{Server}/auth/admin/list/reg</td>
         <td></td>
         <td></td>
         <td>
-            Response Saved :-<br>
             {
                 "status": true,
-                "msg": "Registered Faculty List!",
+                "msg": "Registered Student List!",
                 "data": [
                     {
-                        "id": 1,
-                        "co_name": "sadaf",
-                        "email": "sadaf@asd.com",
-                        "mobile": "9879879878",
-                        "password": "12345"
+                        "id": 2,
+                        "reg_no": "2024IT2",
+                        "date": null,
+                        "stud_name": "Nishi",
+                        "email": "nishi@itstack.in",
+                        "gender": "F",
+                        "mobile": "9874541155",
+                        "p_name": "its",
+                        "p_mobile": "6874521144",
+                        "address": "ITS",
+                        "qualification": "MBA",
+                        "fees": 9000,
+                        "enq_no": null,
+                        "course": 1,
+                        "Uuser": 5,
+                        "counsellor": 1,
+                        "status":true,
+                        "course_info": {
+                            "crs_name": "react",
+                            "crs_fees": 6000
+                        }
                     }
                 ],
                 "error": null
-            }<br>
-            Response Failed :-<br>
-            {   "status": false,
-                "msg": "Faculty List Not Found !",
-                "data": null,
-                "error":" "
-            }
-        </td>
+    }<br>
+    Response Failed :-<br>
+    {
+        "status": false,
+        "msg": "Student Registration List Not Found !,
+        "data": null,
+        "error": " "
+    }
+</td>
     </tr>
     <td>25.</td>
     <td>Add Batch<b>(Counsellor)</b></td>
@@ -802,6 +818,164 @@
         }
     </td>
 </tr>
+<tr>
+    <td>34.</td>
+    <td>Student Batch View <b>(Student)</b></td>
+    <td>GET</td>
+    <td>{Server}/auth/stud/batch_view</td>
+    <td>JSON</td>
+    <td></td>
+    <td>
+        Response TRUE :-<br>
+        {
+            "status": true,
+            "msg": "Batch Records!",
+            "data": [
+                {
+                    "id": 1,
+                    "student": 1,
+                    "batch": 1,
+                    "batchdata": {
+                        "id": 1,
+                        "start_date": "23-Nov-2024",
+                        "batch_timing": "6pm - 9pm",
+                        "status": true,
+                        "createdAt": "2024-01-21T15:42:29.000Z",
+                        "updatedAt": "2024-01-21T15:42:29.000Z",
+                        "course": 1,
+                        "faculty": 1
+                    }
+                },
+                {
+                    "id": 2,
+                    "student": 1,
+                    "batch": 1,
+                    "batchdata": {
+                        "id": 1,
+                        "start_date": "23-Nov-2024",
+                        "batch_timing": "6pm - 9pm",
+                        "status": true,
+                        "createdAt": "2024-01-21T15:42:29.000Z",
+                        "updatedAt": "2024-01-21T15:42:29.000Z",
+                        "course": 1,
+                        "faculty": 1
+                    }
+                }
+            ],
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": "Batch records not found!",
+            "data": null,
+            "error": " "
+        }
+    </td>
+</tr>
+<tr>
+    <td>35.</td>
+    <td>Student Fees View <b>(Student)</b></td>
+    <td>GET</td>
+    <td>{Server}/auth/stud/fees_view</td>
+    <td>JSON</td>
+    <td></td>
+    <td>
+        Response TRUE :-<br>
+        {
+            "status": true,
+            "msg": "Fees Records!",
+            "data": {
+                "id": 1,
+                "student": 1,
+                "course_id": 1,
+                "total_fees": 5000,
+                "rem_fees": 1000
+            },
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": "Error fetching fees records!",
+            "data": null,
+            "error": " "
+        }
+    </td>
+</tr>
+<tr>
+    <td>36.</td>
+    <td>Student Profile View <b>(Student)</b></td>
+    <td>GET</td>
+    <td>{Server}/auth/stud/stud_profile</td>
+    <td>JSON</td>
+    <td></td>
+    <td>
+        Response TRUE :-<br>
+        {
+            "status": true,
+            "msg": "Student Records!",
+            "data": {
+                "id": 1,
+                "reg_no": "2024IT1",
+                "stud_name": "Riya",
+                "email": "riya@itstack.in",
+                "gender": "F",
+                "mobile": "9874665544",
+                "p_name": "its",
+                "p_mobile": "9874565544",
+                "address": "ITS",
+                "qualification": "MBA",
+                "course": 1
+            },
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": "Student records not found!",
+            "data": null,
+            "error": " "
+        }
+    </td>
+</tr>
+<tr>
+<td>37.</td>
+<td>Student Course <b>(Student)</b></td>
+<td>GET</td>
+<td>{Server}/auth/stud/stud_course_view</td>
+<td>JSON</td>
+<td></td>
+<td>
+    Response TRUE :-<br>
+    {
+        "status": true,
+        "msg": "Student Records!",
+        "data": {
+            "id": 1,
+            "reg_no": "2024IT1",
+            "stud_name": "Riya",
+            "email": "riya@itstack.in",
+            "gender": "F",
+            "mobile": "9874665544",
+            "p_name": "its",
+            "p_mobile": "9874565544",
+            "address": "ITS",
+            "qualification": "MBA",
+            "course": 1
+        },
+        "error": null
+    }<br>
+    Response Failed :-<br>
+    {
+        "status": false,
+        "msg": "Student records not found!",
+        "data": null,
+        "error": " "
+    }
+</td>
+</tr>
+
             </tbody>
         </table>
     </body>
