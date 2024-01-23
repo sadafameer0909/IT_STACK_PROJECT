@@ -441,6 +441,86 @@ router.post("/mul_stud_course", async (request, response) => {
   }
 });
 
+router.get('/list/batch',async(request,response)=>{
+  try
+  { 
+  const data = await Batch.findAll({
+      where: { status: true },
+      attributes: {
+          exclude: ["status", "createdAt", "updatedAt"]
+      }
+  });
+  response.status(200).json(new ApiResponse(true, "Batch List!", data, null))
+  }
+  catch(err)
+  {
+  response.status(500).json(new ApiResponse(false,"Batch List Not Found !",null,err.message))  
+  }
+})
+router.get('/list/fees',async(request,response)=>{
+  try
+  { 
+  const data = await Fees.findAll({
+      where: { status: true },
+      attributes: {
+          exclude: ["status", "createdAt", "updatedAt"]
+      }
+  });
+  response.status(200).json(new ApiResponse(true, "Fees List!", data, null))
+  }
+  catch(err)
+  {
+  response.status(500).json(new ApiResponse(false,"Fees List Not Found !",null,err.message))  
+  }
+})
+router.get('/list/stude_course',async(request,response)=>{
+  try
+  { 
+  const data = await stude_course.findAll({
+      where: { status: true },
+      attributes: {
+          exclude: ["status", "createdAt", "updatedAt"]
+      }
+  });
+  response.status(200).json(new ApiResponse(true, "Student Course List!", data, null))
+  }
+  catch(err)
+  {
+  response.status(500).json(new ApiResponse(false,"Student Course List Not Found !",null,err.message))  
+  }
+})
+router.get('/list/studbatch',async(request,response)=>{
+  try
+  { 
+  const data = await StudBatch.findAll({
+      where: { status: true },
+      attributes: {
+          exclude: ["status", "createdAt", "updatedAt"]
+      }
+  });
+  response.status(200).json(new ApiResponse(true, "Student Batch List!", data, null))
+  }
+  catch(err)
+  {
+  response.status(500).json(new ApiResponse(false,"Student Batch List Not Found !",null,err.message))  
+  }
+})
+router.get('/list/enquiry',async(request,response)=>{
+  try
+  { 
+  const data = await Enquiry.findAll({
+      where: { status: true },
+      attributes: {
+          exclude: ["status", "createdAt", "updatedAt"]
+      }
+  });
+  response.status(200).json(new ApiResponse(true, "Enquiry List!", data, null))
+  }
+  catch(err)
+  {
+  response.status(500).json(new ApiResponse(false,"Enquiry List Not Found !",null,err.message))  
+  }
+})
 
 
 module.exports = router;

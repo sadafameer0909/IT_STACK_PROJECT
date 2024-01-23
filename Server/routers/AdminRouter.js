@@ -1,7 +1,7 @@
 const express=require('express');
 const router = express.Router()
 const ApiResponse = require("../utils/ApiResponse");
-const {user,Counsellor,Faculty,Course,Registration,Fees,Batch,StudBatch,Admin,sequelize} = require('../models');
+const {user,Counsellor,Faculty,Course,Registration,Fees,Batch,StudBatch,Admin,sequelize,stude_course,Enquiry} = require('../models');
 const fileUpload = require('express-fileupload')
 const {v4:uuidv4}=require('uuid');
 const path=require('path')
@@ -68,41 +68,12 @@ router.post("/faculty_reg",async (request,response)=>
         response.status(500).json(new ApiResponse(false,"Faculty Not Saved !",null,err.message))
     }
 })
-//crs_name,crs_duration,crs_fees,crs_image,syllabus,status
-// router.post("/add_course",async (request,response)=>{
 
-//   //  const reqData = request.body;
-// try{
-//     const uploadFile = request.files.crs_image;
-//     if(uploadFile==null||uploadFile==undefined)
-//     {
-//         response.status(500).json(new ApiResponse(false,"Image not uploaded !",null,null))
-//     }else{
-//         if(uploadFile.mimetype.includes("image/"))
-//         {
-//             const name=uuidv4()+path.extname(uploadFile.name);
-//             const filePath='./uploads/'+name;
-//               uploadFile.mv(filePath)
-//     // const{crs_name,crs_duration,crs_fees,crs_image,syllabus}=reqData;
-//     // const crs_Data ={crs_name,crs_duration,crs_fees,crs_image,syllabus,status:true}
-
-//     const data={...request.body,crs_image:name,status:true}
-//     const crs = await Course.create(data);
-//     const imageUrl = '/uploads/' + name;
-//     response.status(201).json(new ApiResponse(true,"Course Saved !",crs,null))
-//         }else{
-//             response.status(500).json(new ApiResponse(false,"Course image wrong Format !",null,"Wrong Format")) 
-//         }}
-    
-// }catch(err){
-//     response.status(500).json(new ApiResponse(false,"Course Not Saved !",null,err.message))
-// }
-// })
 router.post("/add_course",async (request,response)=>{
       try {
         const { crs_name, crs_duration, crs_fees } = request.body;
         const imageFile = request.files.crs_image;
-        const syllabusFile = request.files.syllabus; // Assuming you have a 'syllabus' field in your form
+        const syllabusFile = request.files.syllabus; 
     
         if (!imageFile || !syllabusFile) {
           return response.status(400).json(new ApiResponse(false, "Both image and syllabus files are required!", null, null));
@@ -292,7 +263,7 @@ router.put('/reg_update/:id',async (request,response)=>
         try
         { 
         const data = await Registration.findAll({
-//where: { status: true },
+             where: { status: true },
             attributes: {
                 exclude: ["status", "createdAt", "updatedAt"]
             },
@@ -366,26 +337,114 @@ router.put('/reg_update/:id',async (request,response)=>
             response.status(500).json(new ApiResponse(false,"Batch Not Updated !",null,err.message))
         }
     })
-    router.patch("/stud_batch_status/:id",async (request,response)=>
+    router.patch("/reg_status/:id",async (request,response)=>
     {
         const id = request.params.id;
     
         try{
-            var sbat = await StudBatch.findOne({
+            var reg3 = await Registration.findOne({
                 where : {id}
             })
-            if(sbat==null)
+            if(reg3==null)
+            {
+                response.status(500).json(new ApiResponse(false,"Registration Not Found !",null,null))
+            }else
+            {
+                reg3.status = !reg3.status;
+                reg3.save();
+                response.status(200).json(new ApiResponse(true,"Registration Status Changed !",null,null))
+            }
+            
+        }catch(err){
+            response.status(500).json(new ApiResponse(false,"Registration Not Updated !",null,err.message))
+        }
+    })
+    router.patch("/StudBatch_status/:id",async (request,response)=>
+    {
+        const id = request.params.id;
+    
+        try{
+            var stu1 = await StudBatch.findOne({
+                where : {id}
+            })
+            if(stu1==null)
             {
                 response.status(500).json(new ApiResponse(false,"Student Batch Not Found !",null,null))
             }else
             {
-                sbat.status = !sbat.status;
-                sbat.save();
+                stu1.status = !stu1.status;
+                stu1.save();
                 response.status(200).json(new ApiResponse(true,"Student Batch Status Changed !",null,null))
             }
             
         }catch(err){
             response.status(500).json(new ApiResponse(false,"Student Batch Not Updated !",null,err.message))
+        }
+    })
+    router.patch("/stud_course/:id",async (request,response)=>
+    {
+        const id = request.params.id;
+    
+        try{
+            var stu2 = await stude_course.findOne({
+                where : {id}
+            })
+            if(stu2==null)
+            {
+                response.status(500).json(new ApiResponse(false,"Student Course Not Found !",null,null))
+            }else
+            {
+                stu2.status = !stu2.status;
+                stu2.save();
+                response.status(200).json(new ApiResponse(true,"Student Course Status Changed !",null,null))
+            }
+            
+        }catch(err){
+            response.status(500).json(new ApiResponse(false,"Student Course Not Updated !",null,err.message))
+        }
+    })
+    router.patch("/fees_status/:id",async (request,response)=>
+    {
+        const id = request.params.id;
+    
+        try{
+            var fees3 = await Fees.findOne({
+                where : {id}
+            })
+            if(fees3==null)
+            {
+                response.status(500).json(new ApiResponse(false,"Fees Not Found !",null,null))
+            }else
+            {
+                fees3.status = !fees3.status;
+                fees3.save();
+                response.status(200).json(new ApiResponse(true,"Fees Status Changed !",null,null))
+            }
+            
+        }catch(err){
+            response.status(500).json(new ApiResponse(false,"Fees Status Not Updated !",null,err.message))
+        }
+    })
+    router.patch("/user_status/:id",async (request,response)=>
+    {
+        const id = request.params.id;
+    
+        try{
+            var user2 = await user.findOne({
+                where : {id}
+            })
+            if(user2==null)
+            {
+                response.status(500).json(new ApiResponse(false,"User Not Found !",null,null))
+            }else
+            {
+                user2.status = !user2.status;
+                user2.save();
+                response.status(200).json(new ApiResponse(true,"User Status Changed !",null,null))
+            }
+            
+        }catch(err){
+            response.status(500).json(new ApiResponse(false,"User Status Not Updated !",null,err.message))
         }
     })
     router.put('/admin_change_password', async (request, response) => {
@@ -478,6 +537,107 @@ router.put('/reg_update/:id',async (request,response)=>
                 response.status(500).json(new ApiResponse(false,"Course Image Not Updated !",null,err.message))
             }
         })    
-    //course, batch, fees, student course, student batch, enquiry
+        router.get('/list/batch',async(request,response)=>{
+            try
+            { 
+            const data = await Batch.findAll({
+                where: { status: true },
+                attributes: {
+                    exclude: ["status", "createdAt", "updatedAt"]
+                }
+            });
+            response.status(200).json(new ApiResponse(true, "Batch List!", data, null))
+            }
+            catch(err)
+            {
+            response.status(500).json(new ApiResponse(false,"Batch List Not Found !",null,err.message))  
+            }
+        })
+        router.get('/list/fees',async(request,response)=>{
+            try
+            { 
+            const data = await Fees.findAll({
+                where: { status: true },
+                attributes: {
+                    exclude: ["status", "createdAt", "updatedAt"]
+                }
+            });
+            response.status(200).json(new ApiResponse(true, "Fees List!", data, null))
+            }
+            catch(err)
+            {
+            response.status(500).json(new ApiResponse(false,"Fees List Not Found !",null,err.message))  
+            }
+        })
+        router.get('/list/stude_course',async(request,response)=>{
+            try
+            { 
+            const data = await stude_course.findAll({
+                where: { status: true },
+                attributes: {
+                    exclude: ["status", "createdAt", "updatedAt"]
+                }
+            });
+            response.status(200).json(new ApiResponse(true, "Student Course List!", data, null))
+            }
+            catch(err)
+            {
+            response.status(500).json(new ApiResponse(false,"Student Course List Not Found !",null,err.message))  
+            }
+        })
+        router.get('/list/studbatch',async(request,response)=>{
+            try
+            { 
+            const data = await StudBatch.findAll({
+                where: { status: true },
+                attributes: {
+                    exclude: ["status", "createdAt", "updatedAt"]
+                }
+            });
+            response.status(200).json(new ApiResponse(true, "Student Batch List!", data, null))
+            }
+            catch(err)
+            {
+            response.status(500).json(new ApiResponse(false,"Student Batch List Not Found !",null,err.message))  
+            }
+        })
+        router.get('/list/enquiry',async(request,response)=>{
+            try
+            { 
+            const data = await Enquiry.findAll({
+                where: { status: true },
+                attributes: {
+                    exclude: ["status", "createdAt", "updatedAt"]
+                }
+            });
+            response.status(200).json(new ApiResponse(true, "Enquiry List!", data, null))
+            }
+            catch(err)
+            {
+            response.status(500).json(new ApiResponse(false,"Enquiry List Not Found !",null,err.message))  
+            }
+        })
+        router.patch("/stud_batch_status/:id",async (request,response)=>
+        {
+            const id = request.params.id;
+        
+            try{
+                var sbat = await StudBatch.findOne({
+                    where : {id}
+                })
+                if(sbat==null)
+                {
+                    response.status(500).json(new ApiResponse(false,"Student Batch Not Found !",null,null))
+                }else
+                {
+                    sbat.status = !sbat.status;
+                    sbat.save();
+                    response.status(200).json(new ApiResponse(true,"Student Batch Status Changed !",null,null))
+                }
+                
+            }catch(err){
+                response.status(500).json(new ApiResponse(false,"Student Batch Not Updated !",null,err.message))
+            }
+        })
 
 module.exports = router

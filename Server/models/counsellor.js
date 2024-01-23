@@ -38,14 +38,14 @@ module.exports = (sequelize, DataTypes) => {
         len: { args: [[10, 10]], msg: 'Phone Number can only be 10 digits' }
       }
     },
-    // password: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    //   validate: {
-    //     notNull: { msg: "Password Cannot be Null !" },
-    //     notEmpty: { msg: "Password Cannot be Empty !" }
-    //   }
-    // }
+    status: {
+      type:DataTypes.BOOLEAN,
+      allowNull:false,
+      validate:{
+        notNull:{msg:"Status can not be Null !"},
+        notEmpty:{msg:"Status can not be Empty !"}
+      }
+    }
   }, {
     sequelize,
     modelName: 'Counsellor',

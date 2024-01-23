@@ -51,14 +51,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: "Email Cannot be Empty !" }
       }
       },
-    // password: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    //   validate: {
-    //     notNull: { msg: "Password Cannot be Null !" },
-    //     notEmpty: { msg: "Password Cannot be Empty !" }
-    //   }
-    // },
     gender: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -115,13 +107,14 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: "Fees Cannot be Empty !" }
       }
     },
-    // status: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    //   validate: {
-    //     notNull: { msg: "Status Cannot be Null !" },
-    //     notEmpty: { msg: "Status Cannot be Empty !" }
-    //   }}
+    status: {
+      type:DataTypes.BOOLEAN,
+      allowNull:false,
+      validate:{
+        notNull:{msg:"Status can not be Null !"},
+        notEmpty:{msg:"Status can not be Empty !"}
+      }
+    }
   },
     {
       sequelize,

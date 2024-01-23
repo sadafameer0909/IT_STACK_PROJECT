@@ -27,6 +27,10 @@ module.exports = {
         allowNull: false,
         references : { model: "users" , key : "id" }
       },
+      status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
