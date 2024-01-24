@@ -15,15 +15,15 @@ router.use((request,response,next)=>{
         response.status(500).json(new ApiResponse(false,"Unauthorized Access !",null,"Account Disabled !"))
     }
 })
-router.get('/list/enq',async(request,response)=>{
-    const data = await Enquiry.findAll({
-        where: { status: true },
-        attributes: {
-            exclude: ["status", "createdAt", "updatedAt"]
-        }
-    });
-    response.status(200).json(new ApiResponse(true, "Enquiry List!", data, null))
-})
+// router.get('/list/enq',async(request,response)=>{
+//     const data = await Enquiry.findAll({
+//         where: { status: true },
+//         attributes: {
+//             exclude: ["status", "createdAt", "updatedAt"]
+//         }
+//     });
+//     response.status(200).json(new ApiResponse(true, "Enquiry List!", data, null))
+// })
 router.post('/stud_enquiry',async(request,response)=>{
     const reqData = request.body;
     try

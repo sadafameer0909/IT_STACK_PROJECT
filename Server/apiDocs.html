@@ -638,6 +638,36 @@
     </td>
 </tr>
 <td>26.</td>
+<td>Faculty List<b>(Counsellor)</b></td>
+<td>GET</td>
+<td>{Server}/auth/couns/list/faculty</td>
+<td></td>
+<td></td>
+<td>
+    Response Saved :-<br>
+    {
+        "status": true,
+        "msg": "Registered Faculty List!",
+        "data": [
+            {
+                "id": 1,
+                "co_name": "sadaf",
+                "email": "sadaf@asd.com",
+                "mobile": "9879879878",
+                "password": "12345"
+            }
+        ],
+        "error": null
+    }<br>
+    Response Failed :-<br>
+    {   "status": false,
+        "msg": "Faculty List Not Found !",
+        "data": null,
+        "error":" "
+    }
+</td>
+</tr>
+<td>27.</td>
     <td>Add Students in Batch<b>(Counsellor)</b></td>
     <td>POST</td>
     <td>{Server}/auth/couns/add_stud_batch</td>
@@ -825,7 +855,7 @@
     </td>
 </tr>
 <tr>
-    <td>34.</td>
+    <td>33.</td>
     <td>Student Batch View <b>(Student)</b></td>
     <td>GET</td>
     <td>{Server}/auth/stud/batch_view</td>
@@ -880,7 +910,7 @@
     </td>
 </tr>
 <tr>
-    <td>35.</td>
+    <td>34.</td>
     <td>Student Fees View <b>(Student)</b></td>
     <td>GET</td>
     <td>{Server}/auth/stud/fees_view</td>
@@ -910,7 +940,7 @@
     </td>
 </tr>
 <tr>
-    <td>36.</td>
+    <td>35.</td>
     <td>Student Profile View <b>(Student)</b></td>
     <td>GET</td>
     <td>{Server}/auth/stud/stud_profile</td>
@@ -946,7 +976,7 @@
     </td>
 </tr>
 <tr>
-<td>37.</td>
+<td>36.</td>
 <td>Student Course <b>(Student)</b></td>
 <td>GET</td>
 <td>{Server}/auth/stud/stud_course_view</td>
@@ -982,7 +1012,7 @@
 </td>
 </tr>
 <tr>
-    <td>38.</td>
+    <td>37.</td>
     <td>Batch List<b>(Admin)</b></td>
     <td>Get</td>
     <td>{Server}/admin/list/batch</td>
@@ -1004,51 +1034,29 @@
     </td>
 </tr>
 <tr>
+    <td>38.</td>
+    <td>Fees List<b>(Admin)</b></td>
+    <td>Get</td>
+    <td>{Server}/admin/list/fees</td>
+    <td></td>
+    <td></td>
+    <td>
+        Response Saved :-<br>
+        {   "status": true,
+            "msg": "Fees List !",
+            "data": [ ],
+            "error": null
+        } <br>
+        Response Failed :-<br>
+        {   "status": failed,
+            "msg": "Fees List Not Found !",
+            "data": null,
+            "error": null
+        } 
+    </td>
+    </tr>
+<tr>
     <td>39.</td>
-    <td>Fees List<b>(Admin)</b></td>
-    <td>Get</td>
-    <td>{Server}/admin/list/fees</td>
-    <td></td>
-    <td></td>
-    <td>
-        Response Saved :-<br>
-        {   "status": true,
-            "msg": "Fees List !",
-            "data": [ ],
-            "error": null
-        } <br>
-        Response Failed :-<br>
-        {   "status": failed,
-            "msg": "Fees List Not Found !",
-            "data": null,
-            "error": null
-        } 
-    </td>
-</tr>
-<tr>
-    <td>40.</td>
-    <td>Fees List<b>(Admin)</b></td>
-    <td>Get</td>
-    <td>{Server}/admin/list/fees</td>
-    <td></td>
-    <td></td>
-    <td>
-        Response Saved :-<br>
-        {   "status": true,
-            "msg": "Fees List !",
-            "data": [ ],
-            "error": null
-        } <br>
-        Response Failed :-<br>
-        {   "status": failed,
-            "msg": "Fees List Not Found !",
-            "data": null,
-            "error": null
-        } 
-    </td>
-</tr>
-<tr>
-    <td>41.</td>
     <td>Student Course List<b>(Admin)</b></td>
     <td>Get</td>
     <td>{Server}/admin/list/stude_course</td>
@@ -1070,7 +1078,7 @@
     </td>
 </tr>
 <tr>
-    <td>42.</td>
+    <td>40.</td>
     <td>Student Batch List<b>(Admin)</b></td>
     <td>Get</td>
     <td>{Server}/admin/list/studbatch</td>
@@ -1092,28 +1100,49 @@
     </td>
 </tr>
 <tr>
-    <td>43.</td>
-    <td>Enquiry List<b>(Admin)</b></td>
+    <td>41.</td>
+    <td>User List<b>(Admin)</b></td>
     <td>Get</td>
-    <td>{Server}/admin/list/enquiry</td>
+    <td>{Server}/admin/list/user</td>
     <td></td>
     <td></td>
     <td>
         Response Saved :-<br>
         {   "status": true,
-            "msg": "Enquiry List!",
+            "msg": "User List!",
             "data": [ ],
             "error": null
         } <br>
         Response Failed :-<br>
         {   "status": failed,
-            "msg": "Enquiry List not found!",
+            "msg": "User List not found!",
             "data": null,
             "error": null
         } 
     </td>
 </tr>
-<td>44.</td>
+<td>42.</td>
+<td>Enquiry List<b>(Admin)</b></td>
+<td>Get</td>
+<td>{Server}/admin/list/enquiry</td>
+<td></td>
+<td></td>
+<td>
+    Response Saved :-<br>
+    {   "status": true,
+        "msg": "Enquiry List!",
+        "data": [ ],
+        "error": null
+    } <br>
+    Response Failed :-<br>
+    {   "status": failed,
+        "msg": "Enquiry List not found!",
+        "data": null,
+        "error": null
+    } 
+</td>
+</tr>
+<td>43.</td>
 <td>Batch List<b>(Counsellor)</b></td>
 <td>Get</td>
 <td>{Server}/couns/list/batch</td>
@@ -1129,6 +1158,27 @@
     Response Failed :-<br>
     {   "status": failed,
         "msg": "Batch Data !",
+        "data": null,
+        "error": null
+    } 
+</td>
+</tr>
+<td>44.</td>
+<td>Fees List<b>(Counsellor)</b></td>
+<td>Get</td>
+<td>{Server}/couns/list/fees</td>
+<td></td>
+<td></td>
+<td>
+    Response Saved :-<br>
+    {   "status": true,
+        "msg": "Fees List !",
+        "data": [ ],
+        "error": null
+    } <br>
+    Response Failed :-<br>
+    {   "status": failed,
+        "msg": "Fees List Not Found !",
         "data": null,
         "error": null
     } 
@@ -1136,72 +1186,6 @@
 </tr>
 <tr>
 <td>45.</td>
-<td>Batch List<b>(Counsellor)</b></td>
-<td>Get</td>
-<td>{Server}/couns/list/batch</td>
-<td></td>
-<td></td>
-<td>
-    Response Saved :-<br>
-    {   "status": true,
-        "msg": "Batch List !",
-        "data": [ ],
-        "error": null
-    } <br>
-    Response Failed :-<br>
-    {   "status": failed,
-        "msg": "Batch List not found !",
-        "data": null,
-        "error": null
-    } 
-</td>
-</tr>
-<tr>
-<td>46.</td>
-<td>Fees List<b>(Counsellor)</b></td>
-<td>Get</td>
-<td>{Server}/couns/list/fees</td>
-<td></td>
-<td></td>
-<td>
-    Response Saved :-<br>
-    {   "status": true,
-        "msg": "Fees List !",
-        "data": [ ],
-        "error": null
-    } <br>
-    Response Failed :-<br>
-    {   "status": failed,
-        "msg": "Fees List Not Found !",
-        "data": null,
-        "error": null
-    } 
-</td>
-</tr>
-<tr>
-<td>47.</td>
-<td>Fees List<b>(Counsellor)</b></td>
-<td>Get</td>
-<td>{Server}/couns/list/fees</td>
-<td></td>
-<td></td>
-<td>
-    Response Saved :-<br>
-    {   "status": true,
-        "msg": "Fees List !",
-        "data": [ ],
-        "error": null
-    } <br>
-    Response Failed :-<br>
-    {   "status": failed,
-        "msg": "Fees List Not Found !",
-        "data": null,
-        "error": null
-    } 
-</td>
-</tr>
-<tr>
-<td>48.</td>
 <td>Student Course List<b>(Counsellor)</b></td>
 <td>Get</td>
 <td>{Server}/couns/list/stude_course</td>
@@ -1223,7 +1207,7 @@
 </td>
 </tr>
 <tr>
-<td>49.</td>
+<td>46.</td>
 <td>Student Batch List<b>(Counsellor)</b></td>
 <td>Get</td>
 <td>{Server}/couns/list/studbatch</td>
@@ -1245,7 +1229,7 @@
 </td>
 </tr>
 <tr>
-<td>50.</td>
+<td>47.</td>
 <td>Enquiry List<b>(Counsellor)</b></td>
 <td>Get</td>
 <td>{Server}/couns/list/enquiry</td>
@@ -1265,6 +1249,131 @@
         "error": null
     } 
 </td>
+</tr>
+<tr>
+    <td>48.</td>
+    <td>Registration Status Change<b>(Admin)</b></td>
+    <td>PATCH</td>
+    <td>{Server}/auth/admin/reg_status/:id</td>
+    <td>JSON</td>
+    <td>(id in URL)
+    </td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Registration Status Changed !",
+            "data": null,
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": " !",
+            "data": null,
+            "error": null
+        }
+    </td>
+</tr>
+<tr>
+    <td>49.</td>
+    <td>Student Batch Status Change<b>(Admin)</b></td>
+    <td>PATCH</td>
+    <td>{Server}/auth/admin/StudBatch_status/:id</td>
+    <td>JSON</td>
+    <td>(id in URL)
+    </td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Student Batch Status Changed !",
+            "data": null,
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": " !",
+            "data": null,
+            "error": null
+        }
+    </td>
+</tr>
+<tr>
+    <td>50.</td>
+    <td>Student Course Status Change<b>(Admin)</b></td>
+    <td>PATCH</td>
+    <td>{Server}/auth/admin/stud_course/:id</td>
+    <td>JSON</td>
+    <td>(id in URL)
+    </td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Student Course Status Changed !",
+            "data": null,
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": " !",
+            "data": null,
+            "error": null
+        }
+    </td>
+</tr>
+<tr>
+    <td>51.</td>
+    <td>Fees Status Change<b>(Admin)</b></td>
+    <td>PATCH</td>
+    <td>{Server}/auth/admin/fees_status/:id</td>
+    <td>JSON</td>
+    <td>(id in URL)
+    </td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "Fees Status Changed !",
+            "data": null,
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": " !",
+            "data": null,
+            "error": null
+        }
+    </td>
+</tr>
+<tr>
+    <td>52.</td>
+    <td>User Status Change<b>(Admin)</b></td>
+    <td>PATCH</td>
+    <td>{Server}/auth/admin/user_status/:id</td>
+    <td>JSON</td>
+    <td>(id in URL)
+    </td>
+    <td>
+        Response Saved :-<br>
+        {
+            "status": true,
+            "msg": "User Status Changed !",
+            "data": null,
+            "error": null
+        }<br>
+        Response Failed :-<br>
+        {
+            "status": false,
+            "msg": " !",
+            "data": null,
+            "error": null
+        }
+    </td>
 </tr>
 
             </tbody>

@@ -337,6 +337,28 @@ router.put('/reg_update/:id',async (request,response)=>
             response.status(500).json(new ApiResponse(false,"Batch Not Updated !",null,err.message))
         }
     })
+    router.patch("/enquiry_status/:id",async (request,response)=>
+    {
+        const id = request.params.id;
+    
+        try{
+            var enq1 = await Enquiry.findOne({
+                where : {id}
+            })
+            if(enq1==null)
+            {
+                response.status(500).json(new ApiResponse(false,"Batch Not Found !",null,null))
+            }else
+            {
+                enq1.status = !enq1.status;
+                enq1.save();
+                response.status(200).json(new ApiResponse(true,"Batch Status Changed !",null,null))
+            }
+            
+        }catch(err){
+            response.status(500).json(new ApiResponse(false,"Batch Not Updated !",null,err.message))
+        }
+    })
     router.patch("/reg_status/:id",async (request,response)=>
     {
         const id = request.params.id;
@@ -551,6 +573,22 @@ router.put('/reg_update/:id',async (request,response)=>
             catch(err)
             {
             response.status(500).json(new ApiResponse(false,"Batch List Not Found !",null,err.message))  
+            }
+        })
+        router.get('/list/user',async(request,response)=>{
+            try
+            { 
+            const data = await user.findAll({
+                where: { status: true },
+                attributes: {
+                    exclude: ["status", "createdAt", "updatedAt"]
+                }
+            });
+            response.status(200).json(new ApiResponse(true, "User List!", data, null))
+            }
+            catch(err)
+            {
+            response.status(500).json(new ApiResponse(false,"User List Not Found !",null,err.message))  
             }
         })
         router.get('/list/fees',async(request,response)=>{
